@@ -21,7 +21,7 @@ RUN cd unilm/src && pip install --user --editable .
 RUN pip install gdown
 
 # Processed data
-RUN gdown --id 11E3Ij-ctbRUTIQjueresZpoVzLMPlVUZ -O qg-data.zip && upzip qg-data.zip
+RUN gdown --id 11E3Ij-ctbRUTIQjueresZpoVzLMPlVUZ -O qg-data.zip
 
 # Fine-Tuned Checkpoint
-RUN gdown --id 1JN2wnkSRotwUnJ_Z-AbWwoPdP53Gcfsn -O qg-model.zip && upzip qg-model.zip
+RUN gdown --id 1JN2wnkSRotwUnJ_Z-AbWwoPdP53Gcfsn -O qg-model.zip
