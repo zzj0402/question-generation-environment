@@ -19,12 +19,9 @@ RUN git clone https://github.com/microsoft/unilm.git
 RUN cd unilm/src && pip install --user --editable .
 
 RUN pip install gdown
-# Model
-RUN gdown https://drive.google.com/uc?id=1Zj_nZWO7YffaOInj3Q4SZyn09Mb3In-e&export=download
-RUN unzip unilmv1-large-cased.zip -d /root/unilm/ && rm unilmv1-large-cased.zip
 
 # Processed data
-RUN gdown --id 11E3Ij-ctbRUTIQjueresZpoVzLMPlVUZ -O qg-data.zip && upzip qg-data.zip -d /root/qg-data && rm qg-data.zip
+RUN gdown --id 11E3Ij-ctbRUTIQjueresZpoVzLMPlVUZ -O qg-data.zip && upzip qg-data.zip
 
 # Fine-Tuned Checkpoint
-RUN gdown --id 1JN2wnkSRotwUnJ_Z-AbWwoPdP53Gcfsn -O qg-model.zip && upzip qg-model.zip -d /root/qg-model && rm qg-model.zip
+RUN gdown --id 1JN2wnkSRotwUnJ_Z-AbWwoPdP53Gcfsn -O qg-model.zip && upzip qg-model.zip
