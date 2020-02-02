@@ -4,16 +4,27 @@ ENV TZ=Pacific/Auckland
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
 
-RUN apt-get install -y git-all vim wget ssh htop
+RUN apt-get install -y git-all vim wget ssh htop unzip
 
 RUN git clone -q https://github.com/NVIDIA/apex.git
 RUN cd apex && git reset --hard 1603407bf49c7fc3da74fceb6a6c7b47fece2ef8 && python setup.py install --user --cuda_ext --cpp_ext
+
 RUN pip install --user tensorboardX six numpy tqdm path.py pandas scikit-learn lmdb pyarrow py-lz4framed methodtools py-rouge pyrouge nltk
 RUN python -c "import nltk; nltk.download('punkt')"
+
 RUN pip install -e git://github.com/Maluuba/nlg-eval.git#egg=nlg-eva
+
 WORKDIR /root/
 RUN git clone https://github.com/microsoft/unilm.git
 RUN cd unilm/src && pip install --user --editable .
 
 RUN pip install gdown
-# RUN gdown --id 1Zj_nZWO7YffaOInj3Q4SZyn09Mb3In -O unilmv1-large-cased.zip
+# Model
+RUN gdown https://drive.google.com/uc?id=1Zj_nZWO7YffaOInj3Q4SZyn09Mb3In-e&export=download
+RUN unzip unilmv1-large-cased.zip -d /root/unilm/ && rm unilmv1-large-cased.zip
+
+# Processed data
+RUN gdown --id 11E3Ij-ctbRUTIQjueresZpoVzLMPlVUZ -O qg-data.zip && upzip qg-data.zip -d /root/qg-data && rm qg-data.zip
+
+# Fine-Tuned Checkpoint
+RUN gdown --id 1JN2wnkSRotwUnJ_Z-AbWwoPdP53Gcfsn -O qg-model.zip && upzip qg-model.zip -d /root/qg-model && rm qg-model.zip
