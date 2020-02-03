@@ -25,3 +25,11 @@ RUN gdown --id 11E3Ij-ctbRUTIQjueresZpoVzLMPlVUZ -O qg-data.zip
 
 # Fine-Tuned Checkpoint
 RUN gdown --id 1JN2wnkSRotwUnJ_Z-AbWwoPdP53Gcfsn -O qg-model.zip
+
+# Test Preparation
+RUN unzip qg-data.zip && rm qg-data.zip
+ENV DATA_DIR=/root/test
+RUN unzip qg-model.zip && rm qg-model.zip
+ENV MODEL_RECOVER_PATH=/root/qg_model.bin
+ENV EVAL_SPLIT=test
+ENV PYTORCH_PRETRAINED_BERT_CACHE=/root/bert-cased-pretrained-cache
